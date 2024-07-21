@@ -11,10 +11,12 @@ entities: Users and Posts.
 Your final deliverables should be:
 - A GitHub repository containing your project&#39;s code.
 - A README file that explains how to run the application.
+
 You will be evaluated based on:
 - The quality of your code.
 - The successful implementation of all the required features.
 - The use of NestJS, Prisma, and PostgreSQL.
+
 To submit, kindly provide the GitHub link to your repository by replying to this email.
 
 Note: Take home task should be written in Nestjs.
