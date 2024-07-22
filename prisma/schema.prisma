@@ -14,13 +14,13 @@ datasource db {
 }
 
 model User {
-  id            Int       @id @default(autoincrement())
-  username      String    @unique
-  password_hash String
-  token         String
-  createdAt     DateTime  @default(now()) @map("created_at")
-  updatedAt     DateTime  @default(now()) @updatedAt @map("updated_at")
-  deletedAt     DateTime? @map("deleted_at")
+  id           Int       @id @default(autoincrement())
+  username     String    @unique
+  passwordHash String    @map("password_hash")
+  token        String?
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @default(now()) @updatedAt @map("updated_at")
+  deletedAt    DateTime? @map("deleted_at")
 
   posts Post[]
 
