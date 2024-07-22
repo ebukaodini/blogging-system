@@ -5,7 +5,7 @@ import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class AuthService {
-  private accessTokenExpiresIn = '5m';
+  private accessTokenExpiresIn = '30m';
 
   constructor(private readonly prismaService: PrismaService) {}
 
@@ -36,9 +36,19 @@ export class AuthService {
 
   async verifyAccessToken(token: string): Promise<jwt.JwtPayload> {
     try {
-      return jwt.verify(token, process.env.JWT_SECRET!) as JwtPayload;
+      return this.prismaService.user
+        .findFirst({ where: { token } })
+        .then((result) => {
+          if (result)
+            return jwt.verify(
+              result.token,
+              process.env.JWT_SECRET!,
+            ) as JwtPayload;
+          else throw new Error('Invalid token');
+        });
     } catch (error) {
-      throw error;
+      console.log(error.message);
+      throw new Error(error.message);
     }
   }
 }

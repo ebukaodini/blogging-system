@@ -24,6 +24,7 @@
     "nest:module": "nest g module",
     "nest:controller": "nest g controller",
     "nest:service": "nest g service",
+    "nest:guard": "nest g guard",
     "nest:resource": "nest g resource"
   },
   "dependencies": {

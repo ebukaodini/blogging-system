@@ -13,8 +13,8 @@ type PropertyType = {
   transform?: (v: ValidationArguments['value']) => any;
 };
 
-@ValidatorConstraint({ async: true, name: 'IsUnique' })
-export class IsUniqueConstraint implements ValidatorConstraintInterface {
+@ValidatorConstraint({ async: true, name: 'Exists' })
+export class ExistsConstraint implements ValidatorConstraintInterface {
   constructor(private readonly prismaService: PrismaService) {}
 
   async validate(value: any, args: ValidationArguments): Promise<boolean> {
@@ -27,18 +27,18 @@ export class IsUniqueConstraint implements ValidatorConstraintInterface {
         },
       })
       .then((result: any) => {
-        if (result) return false;
+        if (!result) return false;
         return true;
       });
   }
 
   defaultMessage(args: ValidationArguments): string {
     const { entity, field } = args.constraints[0] as PropertyType;
-    return `${entity} ${[field ?? args.property]} already exists`;
+    return `${entity} ${[field ?? args.property]} does not exist`;
   }
 }
 
-export function IsUnique(
+export function Exists(
   property: PropertyType,
   validationOptions?: ValidationOptions,
 ) {
@@ -48,7 +48,7 @@ export function IsUnique(
       propertyName: propertyName,
       options: validationOptions,
       constraints: [property],
-      validator: new IsUniqueConstraint(new PrismaService()),
+      validator: new ExistsConstraint(new PrismaService()),
     });
   };
 }
