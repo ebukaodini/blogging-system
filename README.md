@@ -7,6 +7,8 @@ A simple blogging system.
 ## Installation
 
 ```bash
+$ git clone https://github.com/ebukaodini/blogging-system.git
+$ cd blogging-system
 $ npm install
 ```
 
